@@ -24,7 +24,7 @@ const OmpItem = (props) => {
       <div className="Omp-content">
         <strong>Дело номер {props.omp.criminalCaseNumber}. | {props.omp.omvd} | Время оправки: {dep()} | Время прибытия: {arr()} | {date()}</strong>
       </div>
-      <button>Кнопка</button>
+      <button onClick={() => props.remove(props.omp)}>Удалить</button>
     </div>
   );
 };

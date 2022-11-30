@@ -1,7 +1,7 @@
 import React from 'react';
 import OmpItem from "./OmpItem";
 
-const OmpList = ({omps}) => {
+const OmpList = ({omps, remove}) => {
 
   if (!omps.length) {
     return (
@@ -14,7 +14,7 @@ const OmpList = ({omps}) => {
     return (
     <div>
       {omps.map(omp =>
-        <OmpItem key={omp.id} omp={omp}/>
+        <OmpItem remove={remove} key={omp.id} omp={omp}/>
       )}
     </div>
   );

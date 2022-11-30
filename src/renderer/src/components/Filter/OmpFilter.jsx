@@ -5,7 +5,7 @@ const OmpFilter = ({filter, setFilter}) => {
   return (
     <div>
       <input
-        style={{marginRight: 5}}
+        style={{marginRight: 5, marginLeft: 10, marginTop: 10}}
         type='text'
         value={filter.search}
         onChange={e => setFilter({...filter, search: e.target.value})}
@@ -22,6 +22,7 @@ const OmpFilter = ({filter, setFilter}) => {
           {value: 'date', name: 'По дате'},
         ]}
       />
+      <hr style={{color:"darkorange", border:"solid"}}/>
     </div>
   );
 };
