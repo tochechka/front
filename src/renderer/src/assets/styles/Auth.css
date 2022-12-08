@@ -61,7 +61,6 @@ input:-webkit-autofill
 .password-form {
   border: 1px solid white;
   background-color: black;
-  background-image: url("../images/key.svg");
   background-position-x: 12px;
   background-position-y: 15px;
   background-repeat: no-repeat;

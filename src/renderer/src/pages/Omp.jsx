@@ -2,6 +2,7 @@ import React, {useEffect, useState, useMemo} from 'react';
 import apiClient from "../api";
 import OmpList from "../components/OMP/OmpList";
 import OmpFilter from "../components/Filter/OmpFilter";
+import login from "../bg.png";
 
 const Omp = () => {
   const [omps, setOmps] = useState([]);
@@ -29,6 +30,7 @@ const Omp = () => {
       .get('/omps')
       .then((response) => {
         setOmps(response.data.content)
+        console.log('Загетили')
       })
   }
 
@@ -50,7 +52,7 @@ const Omp = () => {
     apiClient
       .post('/omps', info)
       .then(() => {
-        setOmps([...omps, {omvd: info.omvd, date: info.date, arrivalTime: info.arrivalTime, departureTime: info.departureTime, criminalCaseNumber: info.criminalCaseNumber}])
+        getRequest();
         console.log("Получилось")
         console.log(info)
       })
@@ -75,13 +77,17 @@ const Omp = () => {
     apiClient
       .delete(`omps/${omp.id}`)
       .then(() => {
-        console.log(Удалилось)
+        console.log('Удалилось')
         setOmps(omps.filter(p => p.id !== omp.id))
       })
   }
 
   return (
-    <div>
+    <div
+      style={{
+        backgroundImage: `url(${login})`
+      }}
+    >
       <OmpFilter filter={filter} setFilter={setFilter} />
       <form>
         <input
@@ -92,13 +98,13 @@ const Omp = () => {
         <input
           value={arr}
           onChange={e => setArr(e.target.value)}
-          type="text"
+          type="time"
           placeholder="Время прибытия"
         />
         <input
           value={dep}
           onChange={e => setDep(e.target.value)}
-          type="text"
+          type="time"
           placeholder="Время отправки"
         />
         <input
@@ -116,7 +122,7 @@ const Omp = () => {
         <button onClick={addNewOmp}>Сохранить</button>
       </form>
       <div className="mb-3 mt-2 mes">{text}</div>
-      <OmpList remove={removeOmp} omps={sortedAndSearchedOmps}/>
+      <OmpList remove={removeOmp} get={getRequest} omps={sortedAndSearchedOmps}/>
     </div>
   );
 };
