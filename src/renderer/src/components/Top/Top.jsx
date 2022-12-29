@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import OmpFilter from "../Filter/OmpFilter";
+import '../../assets/styles/Top.css'
 import apiClient from "../../api";
+import NewOmp from "../Modal/NewOmp";
 
 const Top = ({get, filter, setFilter}) => {
   const [text, setText] = useState('');
@@ -9,6 +11,8 @@ const Top = ({get, filter, setFilter}) => {
   const [dep, setDep] = useState('');
   const [number, setNumber] = useState('');
   const [omvd, setOmvd] = useState('');
+  const [newId, setNewId] = useState('');
+  const [newActive, setNewActive] = useState(false);
 
   function addNewOmp(e) {
     e.preventDefault();
@@ -23,8 +27,11 @@ const Top = ({get, filter, setFilter}) => {
 
     apiClient
       .post('/omps', info)
-      .then(() => {
+      .then((response) => {
         get();
+        setNewId(response.data.id);
+        setNewActive(true);
+        console.log(response.data.id)
         console.log("Получилось")
         console.log(info)
       })
@@ -46,7 +53,7 @@ const Top = ({get, filter, setFilter}) => {
   }
 
   return (
-    <div>
+    <div className='header'>
       <OmpFilter filter={filter} setFilter={setFilter} />
       <form>
         <input
@@ -55,12 +62,14 @@ const Top = ({get, filter, setFilter}) => {
           type="date"
         />
         <input
+          style={{marginLeft: 10}}
           value={arr}
           onChange={e => setArr(e.target.value)}
           type="time"
           placeholder="Время прибытия"
         />
         <input
+          style={{marginLeft: 10}}
           value={dep}
           onChange={e => setDep(e.target.value)}
           type="time"
@@ -68,19 +77,26 @@ const Top = ({get, filter, setFilter}) => {
         />
         <input
           value={omvd}
+          style={{marginLeft: 10}}
           onChange={e => setOmvd(e.target.value)}
           type="text"
           placeholder="Название омвд"
         />
         <input
+          style={{marginLeft: 10}}
           value={number}
           onChange={e => setNumber(e.target.value)}
           type="text"
           placeholder="Номер дела"
         />
-        <button onClick={addNewOmp}>Сохранить</button>
+        <button className='top-button' onClick={addNewOmp}>Сохранить</button>
       </form>
       <div className="mb-3 mt-2 mes">{text}</div>
+      <NewOmp
+        active={newActive}
+        setActive={setNewActive}
+        id={newId}
+      />
     </div>
   );
 };

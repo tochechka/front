@@ -1,11 +1,26 @@
 import React from 'react';
 import Sort from "./Sort";
+import apiClient from "../../api";
+import '../../assets/styles/Top.css'
 
 const OmpFilter = ({filter, setFilter}) => {
+
+  function sendToServer(e) {
+    e.preventDefault();
+
+    apiClient
+      .post('/transactions/send', [])
+      .then((response) => {
+        console.log(response)
+        console.log("Отправилось на сервер?")
+      });
+  }
+
   return (
     <div>
       <input
-        style={{marginRight: 5, marginLeft: 10, marginTop: 10}}
+        // className="top-form"
+        style={{marginRight: 10}}
         type='text'
         value={filter.search}
         onChange={e => setFilter({...filter, search: e.target.value})}
@@ -22,6 +37,7 @@ const OmpFilter = ({filter, setFilter}) => {
           {value: 'date', name: 'По дате'},
         ]}
       />
+      <button className='top-button' onClick={sendToServer}> Отправить все на сервер </button>
       <hr style={{color:"darkorange", border:"solid"}}/>
     </div>
   );
