@@ -25,9 +25,10 @@ const ChangeOmp = ({active, setActive, number, omvd, dep, arr, date, id, get}) =
     apiClient
       .put(`/omps/${id}`, info)
       .then(() => {
-        console.log("Изменилось")
-        console.log(info)
-        get()
+        console.log("Изменилось");
+        console.log(info);
+        setActive(false);
+        get();
       })
       .catch(() => {
         console.log(info)
@@ -79,7 +80,7 @@ const ChangeOmp = ({active, setActive, number, omvd, dep, arr, date, id, get}) =
             />
           </div>
         </Col>
-        <button style={{marginTop: 20}} onClick={changeOmp}> Сохранить </button>
+        <button style={{marginTop: 20}} onClick={changeOmp} className='change-button'> Сохранить </button>
       </div>
     </div>
   );

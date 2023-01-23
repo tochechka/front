@@ -90,6 +90,7 @@ const Top = ({get, filter, setFilter}) => {
           placeholder="Номер дела"
         />
         <button className='top-button' onClick={addNewOmp}>Сохранить</button>
+        <button className='top-button' onClick={get()}>Обновить</button>
       </form>
       <div className="mb-3 mt-2 mes">{text}</div>
       <NewOmp
